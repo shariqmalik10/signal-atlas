@@ -1,10 +1,13 @@
 {
   "name": "ui-sites-collection",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A contextual UI and design-engineering resource atlas.",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "check": "tsc -b"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +19,9 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
+    "@types/node": "^26.1.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
