@@ -11,7 +11,8 @@ export type AtlasLink = {
   description: string
   tags: string[]
   sources: Source[]
-  addedBy?: 'collection' | 'portal'
+  addedAt?: string
+  addedBy?: 'collection' | 'custom'
 }
 
 const STOP_WORDS = new Set([
