@@ -2,7 +2,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import App from './App'
 
-describe('Signal Atlas public directory', () => {
+describe('UI Atlas public directory', () => {
   it('shows a date and short description before the destination in each resource row', () => {
     render(<App />)
 
@@ -101,6 +101,8 @@ describe('Signal Atlas public directory', () => {
 
     const preview = screen.getByRole('complementary', { name: /preview dicebear/i })
     expect(within(preview).queryByRole('link')).toBeNull()
+    const iframe = within(preview).getByTitle(/preview of dicebear/i) as HTMLIFrameElement
+    expect(iframe.tabIndex).toBe(-1)
   })
 
   it('keeps enabled hover previews dynamically above the cursor', () => {

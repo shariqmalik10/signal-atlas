@@ -1,4 +1,4 @@
-name: Deploy Signal Atlas to GitHub Pages
+name: Deploy UI Atlas to GitHub Pages
 
 on:
   push:

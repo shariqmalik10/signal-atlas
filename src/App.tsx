@@ -29,7 +29,7 @@ function formatAddedDate(link: AtlasLink) {
 
 function publicDescription(link: AtlasLink) {
   const cleaned = link.description.replace(/\s*Collected via .+$/gi, '').trim()
-  return cleaned || `A curated ${link.category.toLowerCase()} resource from Signal Atlas.`
+  return cleaned || `A curated ${link.category.toLowerCase()} resource from UI Atlas.`
 }
 
 function displayName(link: AtlasLink, nearbyLinks: AtlasLink[]) {
@@ -141,7 +141,7 @@ export default function App() {
   return <main className="atlas-shell" id="directory">
     <div aria-hidden="true" className={`pixel-cursor${pointer ? ' is-visible' : ''}`} data-testid="pixel-cursor" style={pointer ? { transform: `translate(${pointer.x}px, ${pointer.y}px)` } : undefined} />
     <header className="site-header">
-      <a className="brand" href="/"><span className="brand-mark" aria-hidden="true"><i /><i /><i /></span><span>Signal<br />Atlas</span></a>
+      <a className="brand" href="/"><span className="brand-mark" aria-hidden="true"><i /><i /><i /></span><span>UI<br />Atlas</span></a>
       <div className="header-actions"><a className="subtle-link" href="#sources">Sources</a><button className="command-trigger" onClick={() => setCommandOpen(true)} aria-label="Open contextual search"><Search size={16} /><span>Search the atlas</span><kbd>⌘ K</kbd></button></div>
     </header>
 
@@ -195,9 +195,9 @@ export default function App() {
       <div><p>Every imported resource retains its source data, while the directory stays intentionally quiet. The original collection came from your supplied Arc links; additional routes were discovered from these curation hubs.</p><ul>{SOURCE_HUBS.map((source) => <li key={source.name}><a href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{source.name} <ArrowUpRight size={13} /></a></li>)}</ul></div>
     </section>
 
-    <footer className="site-footer"><span>Signal Atlas / living index</span><span>Static catalog · edit <code>src/data/custom-links.ts</code> to add a link</span></footer>
+    <footer className="site-footer"><span>UI Atlas / living index</span><span>Static catalog · edit <code>src/data/custom-links.ts</code> to add a link</span></footer>
 
-    <Command.Dialog className="command-dialog" open={commandOpen} onOpenChange={setCommandOpen} label="Search Signal Atlas" shouldFilter={false}>
+    <Command.Dialog className="command-dialog" open={commandOpen} onOpenChange={setCommandOpen} label="Search UI Atlas" shouldFilter={false}>
       <div className="command-box"><div className="command-input-wrap"><Search size={17} /><Command.Input value={query} onValueChange={setQuery} placeholder="Try “creative coding”, “avatar generator”, or “agent UI”…" autoFocus /></div><Command.List>{results.slice(0, 10).map((link) => <Command.Item key={link.id} value={`${link.title} ${link.category} ${link.tags.join(' ')}`} onSelect={() => { window.open(link.url, '_blank', 'noopener,noreferrer'); setCommandOpen(false) }}><span><b>{link.title}</b><small>{link.category} · {publicDescription(link)}</small></span><ArrowUpRight size={16} /></Command.Item>)}{!results.length && <Command.Empty>No matching links.</Command.Empty>}</Command.List><div className="command-footer"><span>↵ to open a result</span><span>esc to close</span><span><kbd>⌘ K</kbd> from anywhere</span></div></div>
     </Command.Dialog>
   </main>
@@ -206,7 +206,7 @@ export default function App() {
 function PreviewTooltip({ link, point }: { link: AtlasLink; point: PreviewPoint | null }) {
   return <aside className={`preview-tooltip${point ? ' is-pointer' : ''}`} aria-label={`Preview ${link.title}`} aria-live="polite" style={point ?? undefined}>
     <div className="preview-label"><span>Site preview</span><span>{domainFor(link.url)}</span></div>
-    <div className="preview-window" key={link.id}><iframe title={`Preview of ${link.title}`} src={link.url} sandbox="allow-scripts allow-forms allow-popups" referrerPolicy="no-referrer" loading="lazy" /><div className="preview-fallback">Some sites block embedded previews.</div></div>
+    <div className="preview-window" key={link.id}><iframe title={`Preview of ${link.title}`} src={link.url} sandbox="allow-scripts allow-forms allow-popups" referrerPolicy="no-referrer" loading="lazy" tabIndex={-1} /><div className="preview-fallback">Some sites block embedded previews.</div></div>
     <div className="preview-content"><div className="preview-heading"><p className="eyebrow">{link.category}</p><strong>{link.title}</strong></div><p>{publicDescription(link)}</p><div className="preview-tags">{link.tags.slice(0, 5).map((tag) => <span key={tag}>{tag}</span>)}</div></div>
   </aside>
 }
